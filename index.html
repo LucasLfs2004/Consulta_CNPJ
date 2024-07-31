@@ -1,58 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 
-    <title>Document</title>
-  </head>
-  <body>
-    <header>
-      <div class="title">
-        <img src="assets/logo-cnpj.png" alt="" />
-        <div>
-          <h1>Consulta de CNPJ</h1>
-          <p>Situação cadastral rápido e fácil</p>
-        </div>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+
+  <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <div class="title">
+      <img src="assets/logo-cnpj.png" alt="" />
+      <div>
+        <h1>Consulta de CNPJ</h1>
+        <p>Situação cadastral rápido e fácil</p>
       </div>
-    </header>
-    <main id="main">
-      <form id="form-cnpj" class="form">
-        <!-- <label for="cnpj">CNPJ: </label>
+    </div>
+  </header>
+  <main id="main">
+    <form id="form-cnpj" class="form">
+      <!-- <label for="cnpj">CNPJ: </label>
             <input type="text" id="cnpj" maxlength="18" autocomplete="off" placeholder="CNPJ" class="input-cnpj"> -->
 
-        <div class="infos">
-          <h1>Consulta CNPJ</h1>
-          <p>
-            Consulte rapidamente por meio do CNPJ, informações sobre empresas.
-            Por meio dessa pesquisa é possível visualizar o comprovante de
-            inscrição e a situação cadastral sobre as empresas de forma fácil e
-            intuitiva. Edite e armazene suas consultas para acesso futuro.
-          </p>
-        </div>
+      <div class="infos box-form">
+        <h1>Consulta CNPJ</h1>
+        <p>
+          Consulte rapidamente por meio do CNPJ, informações sobre empresas.
+          Por meio dessa pesquisa é possível visualizar o comprovante de
+          inscrição e a situação cadastral sobre as empresas de forma fácil e
+          intuitiva. Edite e armazene suas consultas para acesso futuro.
+        </p>
+      </div>
+      <div class="box-form input-box">
         <div class="form-control">
-          <input type="text" id="cnpj" required="" class="input" maxlength="18" />
+          <input type="text" id="cnpj" class="input" maxlength="18" autocomplete="off" />
           <label>
-            <span style="transition-delay: 0ms">C</span
-            ><span style="transition-delay: 50ms">N</span
-            ><span style="transition-delay: 150ms">P</span
-            ><span style="transition-delay: 200ms">J</span>
+            <span style="transition-delay: 0ms">C</span><span style="transition-delay: 50ms">N</span><span
+              style="transition-delay: 150ms">P</span><span style="transition-delay: 200ms">J</span>
           </label>
-          <button type="submit"><span>
-            Pesquisar
-          </span></button>
+          <button type="submit" class="btn-search"><span>
+              Pesquisar
+            </span></button>
         </div>
-      </form>
-    </main>
-    <script src="script.js"></script>
-    <script src="buildComponents.js"></script>
-  </body>
+      </div>
+      <div id="area-historico" class="area-historico box-form">
+        <h1>
+          Histórico
+        </h1>
+      </div>
+
+    </form>
+    <section class="area-cnpj" id="area-cnpj">
+      <div class="title-consulta">
+
+      </div>
+      <div class="row" id="area-cnpj-row"></div>
+
+    </section>
+  </main>
+  <footer>
+    <p>Feito por: Lucas Ferreira Silva</p>
+    <p>Destinado ao teste da vaga de desenvolvedor front-end</p>
+  </footer>
+  <script src="script.js"></script>
+  <script src="buildComponents.js"></script>
+  <script src="historico.js"></script>
+</body>
+
 </html>

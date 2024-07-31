@@ -2,9 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const cnpjInput = document.getElementById("cnpj");
   const form = document.getElementById("form-cnpj");
 
+  buildHistorico()
+
   cnpjInput.addEventListener("input", function (event) {
     let value = event.target.value;
-
     // Remove qualquer caractere que não seja dígito
     value = value.replace(/\D/g, "");
 
@@ -37,31 +38,108 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function searchCnpj(cnpj) {
     try {
-      const response = await fetch(
+      const fetchCnpj = await fetch(
         `https://brasilapi.com.br/api/cnpj/v1/${cnpj}`
       );
-      if (!response.ok) {
+      if (!fetchCnpj.ok) {
         throw new Error("CNPJ não encontrado");
       }
-      const data = await response.json();
-      displayResult(data);
+      const data = await fetchCnpj.json();
+      console.log(data)
+      const fetchLocal = await fetch(`https://viacep.com.br/ws/${data.cep}/json/`);
+      const localData = await fetchLocal.json();
+
+      console.log(localData)
+      saveCnpj(data, localData)
+      displayResult(data, localData);
     } catch (error) {
       displayError(error.message);
     }
   }
 
+  function buildHistorico() {
+    carregaHistorico()
 
-  function displayResult(data) {
+    const buttonsView = document.querySelectorAll('.view-button');
+
+    // Adiciona um event listener a cada botão
+    buttonsView.forEach(button => {
+      button.addEventListener('click', () => {
+        // Obtém o valor do atributo 'data-id-value' do botão clicado
+        const idValue = button.getAttribute('value');
+        // Chama a função com o valor do atributo
+        console.log('value do button: ', idValue);
+        getCnpjOnLocalStorage(idValue);
+      });
+    });
+
+    const buttonsDelete = document.querySelectorAll('.delete-button');
+
+    // Adiciona um event listener a cada botão de deletar histórico
+    buttonsDelete.forEach(button => {
+      button.addEventListener('click', () => {
+        // Obtém o valor do atributo 'data-id-value' do botão clicado
+        const idValue = button.getAttribute('value');
+        console.log(idValue)
+        const historico = JSON.parse(localStorage.getItem('consulta_cnpj_historico'));
+        console.log(historico)
+        let historicoFiltrado = historico.filter(obj => obj.id != idValue)
+        console.log(historicoFiltrado)
+        localStorage.setItem('consulta_cnpj_historico', JSON.stringify(historicoFiltrado));
+        buildHistorico()
+      });
+    });
+  }
+
+  function getCnpjOnLocalStorage(id) {
+    const historico = JSON.parse(localStorage.getItem('consulta_cnpj_historico'))
+    console.log(historico)
+    const cnpj = historico.find(obj => obj.id == id)
+    console.log('cnpj da busca', cnpj)
+    if (cnpj) {
+      displayResult(cnpj.data, cnpj.localidade)
+    } else displayError()
+  }
+
+  function saveCnpj(data, localData) {
+    const historico = JSON.parse(localStorage.getItem('consulta_cnpj_historico')) || []
+    historico.push({ id: Date.now(), data: data, created_at: new Date(), localidade: localData })
+    localStorage.setItem('consulta_cnpj_historico', JSON.stringify(historico));
+    console.log('historico', historico)
+  }
+
+  // function verificaHistorico(historico) {
+
+  //   historico.forEach(element => {
+  //     if (element.cnpj === data.cnpj) {
+  //       return true
+  //     }
+  //   });
+  // }
+
+  function displayResult(data, localidade) {
     console.log(data);
-    const main = document.getElementById('main')
-    const content = document.createElement('div', {id: 'content-cnpj'})
+    buildHistorico();
+    const consultaArea = document.getElementById('area-cnpj')
+    consultaArea.innerHTML = `
+      <div class="title-consulta" >
+      </ >
+      <div class="row" id="area-cnpj-row"></div>`;
+
+
+    const consultaAreaRow = document.getElementById('area-cnpj-row')
+
+    const principalInfos = build_left_infos(data, localidade)
+    consultaAreaRow.appendChild(principalInfos)
 
 
     if (data.qsa.length > 0) {
-        data.qsa.array.forEach(element => {
-            build_card_socio(element)
-        });
+      const sociosArea = build_card_socios(data.qsa)
+      consultaAreaRow.appendChild(sociosArea)
     }
+
+    const cnaes = build_cnaes(data)
+    consultaArea.appendChild(cnaes)
   }
 
   function displayError(erro) {
