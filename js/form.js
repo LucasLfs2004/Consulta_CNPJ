@@ -1,7 +1,6 @@
 // import { arrCnaes } from "./module.js";
 
 function buildForm(cnpj, displayResult) {
-    console.log(cnpj)
     document.body.style.overflow = 'hidden';
     const modal = document.getElementById('modal');
     modal.innerHTML = `
@@ -190,10 +189,6 @@ function buildForm(cnpj, displayResult) {
         const municipio = document.getElementById('municipio').value;
         const uf = document.getElementById('uf').value;
         const selectCnaeFiscal = document.getElementById("cnae_fiscal").value;
-        console.log(dataAbertura);
-
-
-
 
         cnpjEdited.data.razao_social = razaoSocial;
         cnpjEdited.data.nome_fantasia = nomeFantasia;
@@ -220,8 +215,6 @@ function buildForm(cnpj, displayResult) {
         cnpjEdited.localidade.bairro = bairro;
         cnpjEdited.localidade.localidade = municipio;
         cnpjEdited.localidade.uf = uf;
-
-        console.log('CNPJ EDITADO COM SUCESSO: ', cnpjEdited)
 
         const historico = JSON.parse(localStorage.getItem('consulta_cnpj_historico'))
 

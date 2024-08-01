@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    console.log('submit aconteceu')
     const cnpj = cnpjInput.value.replace(/\D/g, "");
     searchCnpj(cnpj);
   });
@@ -45,11 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error("CNPJ não encontrado");
       }
       const data = await fetchCnpj.json();
-      console.log(data)
       const fetchLocal = await fetch(`https://viacep.com.br/ws/${data.cep}/json/`);
       const localData = await fetchLocal.json();
 
-      console.log(localData)
       const objCnpj = saveCnpj(data, localData)
       displayResult(objCnpj);
     } catch (error) {
@@ -102,9 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getCnpjOnLocalStorage(id) {
     const historico = JSON.parse(localStorage.getItem('consulta_cnpj_historico'))
-    console.log(historico)
     const cnpj = historico.find(obj => obj.id == id)
-    console.log('cnpj da busca', cnpj);
     return cnpj
 
   }
@@ -114,12 +109,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const objCnpj = { id: Date.now(), data: data, created_at: new Date(), localidade: localData }
     historico.push(objCnpj)
     localStorage.setItem('consulta_cnpj_historico', JSON.stringify(historico));
-    console.log('historico', historico)
     return objCnpj
   }
 
   function displayResult(objCnpj) {
-    console.log(objCnpj);
     buildHistorico();
     const consultaArea = document.getElementById('area-cnpj')
     consultaArea.setAttribute('idValue', objCnpj.id)

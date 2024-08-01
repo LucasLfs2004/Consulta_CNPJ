@@ -1,8 +1,6 @@
 function build_left_infos(cnpj, localidade) {
   const divSide = document.createElement('div')
   divSide.className = 'side-col';
-  console.log(localidade)
-
   divSide.innerHTML = `
 <div class="cartao-cnpj table-padrao">
             <div class="top-content">
