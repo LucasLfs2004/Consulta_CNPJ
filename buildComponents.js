@@ -9,12 +9,17 @@ function build_left_infos(cnpj, localidade) {
               <h3>Cartão CNPJ</h3>
             </div>
             <div class="content">
+            <div class="row-content ">
+              <div class="column full">
+                <p>Razão Social: </p><span>${cnpj.razao_social}</span>
+              </div>
+            </div>
               <div class="row-content">
                 <div class="column">
-                  <p>Razão Social: </p><span>${cnpj.razao_social}</span>
+                <p>Nome Fantasia: </p><span>${cnpj.nome_fantasia || 'não fornecido'}</span>
                 </div>
                 <div class="column">
-                ${cnpj.nome_fantasia ? `<p>Nome Fantasia: </p><span>${cnpj.nome_fantasia}</span>` : ''}
+                <p>Porte: </p><span>${cnpj.porte}</span>
                 </div>
               </div>
               <div class="row-content">
@@ -103,44 +108,46 @@ function build_card_socios(socios) {
   const scrollSocios = document.createElement('div')
   scrollSocios.className = 'scroll-socios'
 
-  socios.forEach(socio => {
-    //   const cardSocio = build_card_socio(element);
-    //   console.log(cardSocio)
-    //   if (cardSocio)
-    //     quadroSocietario.appendChild(cardSocio)
 
-    console.log(socio)
-    const cardSocio = document.createElement('div')
-    cardSocio.className = 'card-socio';
-    cardSocio.innerHTML = `
-        <div class="card__border"></div>
-        <div class="row">
-          <div class="card_title__container">
-            <span class="card_title">${socio.nome_socio.toLowerCase()}</span>
-            <p class="card_paragraph">${socio.qualificacao_socio}</p>
-          </div>
-          <button class="button">Editar</button>
-        </div>
-        <hr class="line" />
-        <ul class="card__list">
-          <li class="card__list_item">
-            <p class="topic">Data de Entrada:</p>
-            <span class="list_text">${formatDate(socio.data_entrada_sociedade)}</span>
-          </li>
-          <li class="card__list_item">
-            <p class="topic">Faixa Etária: </p>
-            <span class="list_text">${socio.faixa_etaria}</span>
-          </li>
-          <li class="card__list_item">
-            <p class="topic">Qualificação Sócio: </p>
-            <span class="list_text">${socio.qualificacao_socio}</span>
-          </li>
-        </ul>
-    `
-    scrollSocios.appendChild(cardSocio)
 
-  });
-  areaSocios.appendChild(scrollSocios)
+  if (socios.length > 0) {
+    socios.forEach(socio => {
+      const cardSocio = document.createElement('div')
+      cardSocio.className = 'card-socio';
+      cardSocio.innerHTML = `
+      <div class="card__border"></div>
+      <div class="row">
+      <div class="card_title__container">
+      <span class="card_title">${socio.nome_socio.toLowerCase()}</span>
+      <p class="card_paragraph">${socio.qualificacao_socio}</p>
+      </div>
+      </div>
+      <hr class="line" />
+      <ul class="card__list">
+      <li class="card__list_item">
+      <p class="topic">Data de Entrada:</p>
+      <span class="list_text">${formatDate(socio.data_entrada_sociedade)}</span>
+      </li>
+      <li class="card__list_item">
+      <p class="topic">Faixa Etária: </p>
+      <span class="list_text">${socio.faixa_etaria}</span>
+      </li>
+      <li class="card__list_item">
+      <p class="topic">Qualificação Sócio: </p>
+      <span class="list_text">${socio.qualificacao_socio}</span>
+      </li>
+      </ul>
+      `
+      scrollSocios.appendChild(cardSocio)
+    });
+    areaSocios.appendChild(scrollSocios)
+  }
+  else {
+    const notFound = document.createElement('div')
+    notFound.className = 'qsa-null';
+    notFound.innerHTML = '<h3>Sem informações sobre o quadro societário desta empresa</h3>'
+    areaSocios.appendChild(notFound)
+  }
 
   return areaSocios
 }

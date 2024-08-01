@@ -4,6 +4,38 @@ body {
   color: #0d0d0daa;
 }
 
+.alert {
+  width: 100vw;
+  height: 60px;
+  background-color: transparent;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  top: -64px;
+}
+
+.card-alert {
+  width: 326px;
+  height: 64px;
+  padding: 0 12px;
+  background-color: #fff;
+}
+
+.card-alert h3 {
+  margin-top: 12px;
+  color: #14778d;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.card-alert p {
+  color: #1e1e1e;
+  font-weight: 500;
+  font-size: 14px;
+}
+
 header {
   background-color: #f2f0f2;
   padding: 12px 24px;
@@ -224,15 +256,22 @@ main .form .form-control {
   transform: translate3d(100%, 0, 0);
 }
 
-.area-historico {
+.historico {
   display: flex;
   flex-direction: column;
   row-gap: 6px;
 }
 
-.area-historico h1 {
+.historico h1 {
   color: white;
 }
+
+.area-historico {
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 6px;
+}
+
 
 .area-historico .card-historico {
   display: flex;
@@ -262,9 +301,46 @@ main .form .form-control {
 }
 
 .area-cnpj {
-  display: flex;
+  display: none;
   flex-direction: column;
+  max-width: 95vw;
   row-gap: 48px;
+}
+
+.area-cnpj .title-consulta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: calc(100% - 48px);
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 6px 24px;
+  background: linear-gradient(180deg, #ffffff 35%, #f2f0f2);
+  color: #14778d;
+  align-items: center;
+}
+
+.area-cnpj .title-consulta span {
+  color: #1e1e1e;
+}
+
+.button-blue {
+  cursor: pointer;
+
+  padding: 0.5rem;
+  width: 96px;
+  background-image: linear-gradient(0deg,
+      hsl(189, 92%, 58%),
+      hsl(189, 99%, 26%) 100%);
+
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+
+  border: 0;
+  border-radius: 12px;
+  box-shadow: inset 0 -2px 8px -4px var(--white);
+  color: #fff;
 }
 
 .area-cnpj .row {
@@ -287,6 +363,8 @@ main .form .form-control {
   box-shadow: 8px 8px 18px #14778d,
     -8px -8px 18px #1aa1bf;
 }
+
+
 
 .table-padrao .top-content {
   border-radius: 12px 12px 0 0;
@@ -323,6 +401,10 @@ main .form .form-control {
   /* padding: 12px 0; */
 }
 
+.table-padrao .content .row-content .column.full {
+  width: calc(100% - 40px);
+}
+
 .table-padrao .content .row-content .column:nth-last-child(1) {
   justify-content: flex-start;
   border-left: 1px solid #1aa1bf;
@@ -355,6 +437,13 @@ main .form .form-control {
   font-size: 20px;
 }
 
+.quadro-societario .qsa-null h3 {
+  margin-top: 24px;
+  text-align: center;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+
 .quadro-societario .scroll-socios {
   display: flex;
   flex-direction: column;
@@ -364,13 +453,16 @@ main .form .form-control {
   max-height: 460px;
 }
 
-.quadro-societario .scroll-socios::-webkit-scrollbar {
+.quadro-societario .scroll-socios::-webkit-scrollbar,
+.scroll::-webkit-scrollbar {
   width: 6px;
   background-color: #1aa1bf;
   border-radius: 6px;
 }
 
-.quadro-societario .scroll-socios::-webkit-scrollbar-thumb {
+.quadro-societario .scroll-socios::-webkit-scrollbar-thumb,
+.scroll::-webkit-scrollbar-thumb {
+  width: 6px;
   background-color: #f2f0f2;
   border-radius: 6px;
 }
@@ -474,23 +566,262 @@ main .form .form-control {
   /* color: var(--black); */
 }
 
-.card-socio .button {
-  cursor: pointer;
+@media (min-width: 1024px) and (max-width: 1560px) {
+  .area-cnpj {
+    width: 95vw;
+  }
 
-  padding: 0.5rem;
-  width: 96px;
-  background-image: linear-gradient(0deg,
-      hsl(189, 92%, 58%),
-      hsl(189, 99%, 26%) 100%);
+  .area-cnpj .row {
+    column-gap: 48px;
+  }
 
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--white);
+  .area-cnpj .row .side-col {
+    width: calc(70% - 24px);
+  }
 
-  border: 0;
-  border-radius: 12px;
-  box-shadow: inset 0 -2px 8px -4px var(--white);
+  .table-padrao {
+    width: calc(100%);
+  }
+
+  .quadro-societario {
+    width: calc(30% - 24px);
+  }
+
+  .card-socio {
+    width: calc(100% - 36px);
+    height: auto;
+  }
 }
+
+@media (min-width: 1024px) and (max-width: 1340px) {
+  .area-cnpj .row .side-col {
+    width: calc(60% - 24px);
+  }
+
+  .quadro-societario {
+    width: calc(40% - 24px);
+  }
+
+  .quadro-societario .scroll-socios {
+    max-height: 800px;
+  }
+}
+
+@media (max-width: 1260px) {
+  .area-cnpj .row .side-col .table-padrao .row-content {
+    flex-direction: column;
+  }
+
+  .area-cnpj .row .side-col .table-padrao .row-content .column {
+    width: calc(100% - 40px);
+  }
+
+  .area-cnpj .row .side-col .table-padrao .row-content .column:nth-last-child(1) {
+    border-top: 1px solid #1aa1bf;
+  }
+
+  .area-cnpj .row .side-col .table-padrao .row-content p {
+    width: 40%;
+  }
+}
+
+@media (max-width: 1024px) {
+  main .form {
+    flex-direction: column;
+    row-gap: 24px;
+  }
+
+  main .form .box-form {
+    width: 100%;
+  }
+
+  main .form .form-control {
+    margin: 20px 0 0 0;
+  }
+
+  .historico {
+    align-items: center;
+  }
+
+  .historico .area-historico {
+    align-items: center;
+  }
+
+  .area-cnpj .title-consulta {
+    width: calc(100% - 24px);
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .area-cnpj .title-consulta span {
+    color: #1e1e1e;
+  }
+
+  .area-cnpj .row {
+    flex-direction: column;
+  }
+
+  .side-col {
+    width: 100%;
+  }
+
+
+  .area-cnpj .table-padrao .row-content .column {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    border-left: none !important;
+  }
+
+  .area-cnpj .side-col .table-padrao .row-content .column p {
+    width: 100%;
+    color: #000;
+    margin-bottom: 4px;
+  }
+
+  .area-cnpj .table-padrao.cnaes .content .row-content {
+    flex-direction: column;
+  }
+
+  .area-cnpj .table-padrao.cnaes .row-content .column {
+    flex-direction: row;
+  }
+
+  .cnaes.table-padrao .row-content .column {
+    width: calc(100% - 40px) !important;
+    align-items: flex-start;
+  }
+
+  .table-padrao {
+    width: 100%;
+  }
+
+  .area-cnpj .row .quadro-societario {
+    margin-top: 24px;
+    width: calc(100% - 48px);
+
+  }
+
+  .area-cnpj .row .quadro-societario .scroll-socios {
+    /* flex-direction: row; */
+    column-gap: 24px;
+    width: 100%;
+  }
+
+  .area-cnpj .row .quadro-societario .scroll-socios .card-socio {
+    width: calc(100% - 48px);
+  }
+
+
+}
+
+
+.modal {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: #00000050;
+  z-index: 100;
+  top: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal form {
+  width: 90vw;
+  height: 70vh;
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 32px 24px;
+}
+
+.modal form .top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #14778d;
+}
+
+.modal form .top button {
+  width: 32px;
+  height: 32px;
+}
+
+.modal form .area-inputs {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  max-height: 80%;
+  overflow-y: auto;
+  padding-right: 24px;
+}
+
+.modal form .area-inputs .row {
+  column-gap: 32px;
+}
+
+.modal form .area-inputs .box-input {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  row-gap: 12px;
+}
+
+.modal form .area-inputs .box-input label {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1e1e1e;
+}
+
+.modal form .area-inputs .box-input input,
+.modal form .area-inputs .box-input select {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background-color: #f2f0f2;
+  border-radius: 4px;
+  height: 28px;
+  padding: 0 12px;
+}
+
+.modal form .btn-area {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+
+@media (max-width: 1024px) {
+  .modal form .top {
+    align-items: center;
+  }
+
+  .modal form .top h1 {
+    font-size: 16px;
+  }
+
+  .modal form .area-inputs {
+    row-gap: 12px;
+    max-height: calc(100% - 120px);
+  }
+
+  .modal form .area-inputs .row {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  .modal form .area-inputs .box-input label,
+  .modal form .area-inputs .box-input input,
+  .modal form .area-inputs .box-input select {
+    font-size: 14px;
+  }
+}
+
+
 
 footer {
   background-color: #fff;
